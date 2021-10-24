@@ -6,9 +6,10 @@ const { User } = require('../db/models');
 const router = express.Router();
 
 // eslint-disable-next-line consistent-return
-router.post(async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
 
     const userByEmail = await User.findOne({
       where: {
