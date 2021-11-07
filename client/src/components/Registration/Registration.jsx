@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Title from '../UI/Title/Title';
-import { useDispatch } from 'react-redux'
-import { checkSessionAC } from '../../redux/actionCreators/userAC'
+import { checkSessionAC } from '../../redux/actionCreators/userAC';
 
 const Registration = () => {
-  let history = useHistory();
+  const history = useHistory();
 
   const dispatch = useDispatch();
 
-  const [ password, setPassword ] = useState('');
-  const [ passwordConfirm, setConfirmPassword ] = useState('');
-  const [ isError, setIsError ] = useState(false);
-  const [ errorMessage, setErrorMessage ] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setConfirmPassword] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (event) => {
-    setIsError(false)
+    setIsError(false);
     event.preventDefault();
 
     if (password !== passwordConfirm) {
       setIsError(true);
-      setErrorMessage('Пароли не совпадают')
+      setErrorMessage('Пароли не совпадают');
       return;
-    } else {
-      setIsError(false);
     }
+    setIsError(false);
 
     const dataInput = new FormData(event.currentTarget);
     const body = {
@@ -37,35 +36,34 @@ const Registration = () => {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
     const dataFromServer = await response.json();
-    
+
     if (dataFromServer.user) {
-      dispatch(checkSessionAC(dataFromServer.user))
+      dispatch(checkSessionAC(dataFromServer.user));
       history.push('/');
     } else {
       setIsError(true);
-      setErrorMessage(dataFromServer.message)
+      setErrorMessage(dataFromServer.message);
     }
-    
-  }
+  };
   return (
     <main className="form">
       <Title title="Зарегистрироваться" />
       <form id="registerForm" onSubmit={onSubmit} action="/signup" method="POST">
         {
-          isError &&
-          <div className="error">{errorMessage}</div>
+          isError
+          && <div className="error">{errorMessage}</div>
         }
         <div className="mb-3">
           <label htmlFor="inputUsername" className="form-label">Ваше имя</label>
           <input name="username" type="text" className="form-control" id="inputUsername" />
         </div>
-          <div className="mb-3">
+        <div className="mb-3">
           <label htmlFor="inputEmail" className="form-label">Email</label>
           <input name="email" type="email" className="form-control" id="inputEmail" />
         </div>
@@ -73,13 +71,13 @@ const Registration = () => {
           <label htmlFor="inputPassword" className="form-label">Пароль</label>
           <input name="password" onChange={(e) => setPassword(e.target.value)} type="password" minLength="8" className="form-control" id="inputPassword" />
         </div>
-          <div className="mb-3">
+        <div className="mb-3">
           <label htmlFor="inputPasswordConfirm" className="form-label">Подтвердите пароль</label>
           <input name="confirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} type="password" minLength="8" className="form-control" id="inputPasswordConfirm" />
         </div>
-      <button type="submit" className="btn btn-block">Зарегистрироваться</button>
+        <button type="submit" className="btn btn-block">Зарегистрироваться</button>
       </form>
     </main>
-  )
-}
+  );
+};
 export default Registration;

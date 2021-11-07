@@ -1,9 +1,9 @@
-import { combineReducers } from "redux";
-import { contactsReducer } from '../reducers/contactsReducer'
-import { userReducer } from '../reducers/userReducer'
+import { combineReducers } from 'redux';
+import { userReducer } from './userReducer';
+import { queryReducer } from './queryReducer';
 
 
 export const rootReducer = combineReducers({
-  contactsReducer,
-  userReducer
+  userReducer,
+  queryReducer,
 })

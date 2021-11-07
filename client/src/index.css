@@ -98,7 +98,14 @@ nav img {
     margin-top: 23px;
 }
 
+.center-block {
+  display: flex;
+  justify-content: center;
+}
 /*main*/
+h3 {
+  color: #4520ab;
+}
 
 main {
     width: 1280px;
@@ -244,6 +251,7 @@ div.film-description {
 .comment {
   font-size: 20px;
 }
+
 /*media*/
 @media (min-width: 768px) and (max-width: 1400px) {
   header {

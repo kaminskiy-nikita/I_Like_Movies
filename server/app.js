@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const passport = require('passport');
 
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -14,7 +15,6 @@ const favouritesRouter = require('./routes/favourites.router');
 const commentRouter = require('./routes/comment.router');
 const searchRouter = require('./routes/search.router');
 const infoRouter = require('./routes/info.router');
-const userMiddleware = require('./middleware/user');
 const isAuthRouter = require('./routes/isAuth.router');
 
 const app = express();
@@ -31,9 +31,6 @@ const sessionConfig = {
   store: new FileStore(),
 };
 
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -43,7 +40,6 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(userMiddleware);
 app.use('/', indexRouter);
 app.use('/signup', registerRouter);
 app.use('/signin', loginRouter);

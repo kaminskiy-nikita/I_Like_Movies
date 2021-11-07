@@ -1,15 +1,12 @@
-import React, { useContext } from 'react'
+import { useHistory } from 'react-router';
 
 const Main = () => {
-
-
+  const history = useHistory()
   return (
-    <div className="container">
-      
-      Главная
+    <div>
+      {history.push('/searchresult/popular')}
     </div>
-  )
-}
+  );
+};
 
-export default Main
-
+export default Main;
