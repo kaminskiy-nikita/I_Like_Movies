@@ -1,13 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-
 const { User } = require('../db/models');
 
 const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.render('register');
-});
 
 router.post('/', async (req, res) => {
   try {
@@ -20,7 +15,10 @@ router.post('/', async (req, res) => {
     });
 
     if (userWithSameEmail) {
-      res.status(401).json({ userHadRegistration: true });
+      res.status(401).json({
+        user: false,
+        message: 'Пользователь с таким email уже существует',
+      });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,11 +30,12 @@ router.post('/', async (req, res) => {
       username: user.username,
       email: user.username,
     };
+
+    res.json({ user: req.session.user });
   } catch (error) {
     console.log(error.message);
     res.status(401).end();
   }
-  res.json({ userSignedUp: true });
 });
 
 module.exports = router;
