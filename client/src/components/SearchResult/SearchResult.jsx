@@ -37,9 +37,6 @@ const SearchResult = () => {
   useEffect(() => {
     (async () => {
       const films = await fetchResultFilms(page);
-      // setTimeout(() => {
-      //   setFilms(films);
-      // }, 2000)
       setFilms(films);
     })();
   }, [page]);
