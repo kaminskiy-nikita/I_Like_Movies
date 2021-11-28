@@ -11,6 +11,7 @@ import SearchFilms from '../SearchFilms/SearchFilms';
 import SearchResult from '../SearchResult/SearchResult';
 import FavouritesFilms from '../FavouritesFilms/FavouritesFilms';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import FilmInfo from '../FilmInfo/FilmInfo';
 
 function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,10 @@ function App() {
           <PrivateRoute path="/favourites">
             <FavouritesFilms />
           </PrivateRoute>
+
+          <Route exact path="/film/:id">
+            <FilmInfo />
+          </Route>          
 
         </Switch>
 

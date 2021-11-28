@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="logo">
-        <h1><a href="/">ElbrusКино</a></h1>
+        <h1><a href="/">I_like_movies</a></h1>
       </div>
       <nav>
         <ul>
